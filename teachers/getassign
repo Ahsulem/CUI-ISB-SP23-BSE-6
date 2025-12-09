@@ -1,0 +1,67 @@
+const express = require('express');
+const router = express.Router();
+const path = require('path');
+const fs = require('fs');
+const mongoose = require('mongoose');
+const Assignment = require('../models/Assignment');
+
+const FILE_BASE_PATH = process.env.FILE_BASE_PATH || path.join(process.cwd(), 'uploads');
+
+/**
+ * GET /teacher/assign/:id?studentId=<studentId>
+ * - Finds the assignment by :id
+ * - Finds the submission where submission.studentId === studentId
+ * - If submission.fileUrl is an http(s) URL => redirect
+ * - If submission.fileUrl is a local path => res.download()
+ */
+router.get('/assign/:id', async (req, res) => {
+  try {
+    const assignmentId = req.params.id;
+    const studentId = req.query.studentId;
+
+    if (!studentId) {
+      return res.status(400).json({ message: 'Missing required query param: studentId' });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(assignmentId) || !mongoose.Types.ObjectId.isValid(studentId)) {
+      return res.status(400).json({ message: 'Invalid assignment id or studentId' });
+    }
+
+    const assignment = await Assignment.findById(assignmentId).lean();
+    if (!assignment) {
+      return res.status(404).json({ message: 'Assignment not found' });
+    }
+
+    const submission = assignment.submissions.find(s => String(s.studentId) === String(studentId));
+    if (!submission) {
+      return res.status(404).json({ message: 'Submission not found for this student' });
+    }
+
+    const fileUrl = submission.fileUrl;
+    if (!fileUrl) {
+      return res.status(404).json({ message: 'Submitted file URL not present' });
+    }
+
+    // If external URL, redirect
+    if (/^https?:\/\//i.test(fileUrl)) {
+      return res.redirect(fileUrl);
+    }
+
+    // Otherwise assume a local path (relative to FILE_BASE_PATH or absolute)
+    let fullPath = fileUrl;
+    if (!path.isAbsolute(fullPath)) {
+      fullPath = path.join(FILE_BASE_PATH, fileUrl);
+    }
+
+    if (fs.existsSync(fullPath)) {
+      return res.download(fullPath);
+    }
+
+    return res.status(404).json({ message: 'Submitted file not found on server', fullPath });
+  } catch (err) {
+    console.error('GET /teacher/assign/:id error', err);
+    return res.status(500).json({ message: 'Server error' });
+  }
+});
+
+module.exports = router;
