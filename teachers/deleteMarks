@@ -1,0 +1,34 @@
+// Tumazir Fatima (SP23-BSE-049) DELETE /teacher/marks/:id
+const express = require("express");
+const router = express.Router();
+const Marks = require("../models/Marks");
+const validateUser = require("../middleware/validateUser");
+const isTeacher = require("../middleware/isTeacher");
+
+// DELETE /teacher/marks/:id
+router.delete("/marks/:id", validateUser, isTeacher, async (req, res) => {
+  try {
+    const marksId = req.params.id;
+
+    // check if record exists
+    const record = await Marks.findById(marksId);
+    if (!record) {
+      return res.status(404).json({ message: "Marks record not found" });
+    }
+
+    // delete marks
+    await Marks.findByIdAndDelete(marksId);
+
+    res.status(200).json({
+      message: "Marks record deleted successfully"
+    });
+  } 
+  catch (error) {
+    res.status(500).json({
+      message: "Error deleting marks record",
+      error: error.message
+    });
+  }
+});
+
+module.exports = router;
