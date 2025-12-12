@@ -1,0 +1,39 @@
+// Faraha Usman (SP23-BSE-012) POST /admin/addclass
+const express = require("express");
+const router = express.Router();
+const Class = require("../models/Class");
+const validateUser = require("../middleware/validateUser");
+const isAdmin = require("../middleware/isAdmin");
+
+// POST /admin/addclass
+router.post("/addclass", validateUser, isAdmin, async (req, res) => {
+  try {
+    const { classname } = req.body;
+
+    if (!classname) {
+      return res.status(400).json({ message: "Class name is required" });
+    }
+
+    // create new class
+    const newClass = new Class({
+      classname,
+      teacher: null,
+      students: []
+    });
+
+    await newClass.save();
+
+    res.status(201).json({
+      message: "Class created successfully",
+      class: newClass
+    });
+  } 
+  catch (error) {
+    res.status(500).json({
+      message: "Server error while creating class",
+      error: error.message
+    });
+  }
+});
+
+module.exports = router;
