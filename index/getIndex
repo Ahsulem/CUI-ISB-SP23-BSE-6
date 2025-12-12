@@ -1,0 +1,20 @@
+// Ahmad Ali SP23-BSE-001    
+Description: (GET / or /index)	Loads the landing page of LMS. No DB interaction. Only static UI, shows login links and system info.   
+const express = require('express');
+const router = express.Router();
+
+router.get('/', (req, res) => {
+  const systemInfo = {
+    name: 'Learning Management System',
+    version: '1.0.0',
+    description: 'A simple LMS for managing classes, assignments, quizzes, and more.'
+  };
+
+  res.render('index', { systemInfo });
+});
+
+router.get('/index', (req, res) => {
+  res.redirect('/');
+});
+
+module.exports = router;
