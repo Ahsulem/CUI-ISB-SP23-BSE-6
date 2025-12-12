@@ -1,6 +1,6 @@
 // SP23-BSE-024 - POST /student/viewquiz
 // Registration: SP23-BSE-024
-// Author: [Your Name]
+// Author: Maryam Farooq
 // Date: December 12, 2025
 // Description: Takes classId, fetches list of quizzes from Quiz schema where classId matches.
 //              Returns quiz titles and status (attempted or not).
