@@ -449,29 +449,7 @@ After running the database seeder, use these credentials to log in:
 
 ---
 
-## 📸 Screenshots
 
-### Login Page
-- Clean, professional dark theme
-- COMSATS branding
-- Secure authentication
-
-### Admin Dashboard
-- User statistics with charts
-- Recent activity feed
-- System overview
-
-### Teacher Portal
-- Class management
-- Quiz and assignment creation
-- Grade management
-
-### Student Portal
-- Personal progress tracking
-- Assignment submissions
-- Result viewing
-
----
 
 ## 👥 Team Members
 
@@ -508,16 +486,10 @@ This project is developed for educational purposes as part of the Software Engin
 
 For any queries or issues, please contact:
 
-- **Department:** Software Engineering
-- **University:** COMSATS University Islamabad
 - **Semester:** Spring 2023 - BSE 6th Semester
 
 ---
 
 <p align="center">
   Made with ❤️ by SP23-BSE-6 Students
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/COMSATS-University%20Islamabad-blue?style=for-the-badge" alt="COMSATS"/>
 </p>
