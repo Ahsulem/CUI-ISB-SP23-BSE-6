@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/en/b/b9/COMSATS_new_logo.jpg" alt="COMSATS Logo" width="120"/>
-</p>
+
 
 <h1 align="center">🎓 COMSATS Learning Management System</h1>
 
