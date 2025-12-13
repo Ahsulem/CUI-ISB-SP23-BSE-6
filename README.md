@@ -448,22 +448,6 @@ After running the database seeder, use these credentials to log in:
 ---
 
 
-
-## 👥 Team Members
-
-This project was developed by **SP23-BSE-6** students at COMSATS University Islamabad:
-
-| Roll No | Contribution |
-|---------|--------------|
-| SP23-BSE-021 | Delete Class Module |
-| SP23-BSE-024 | View Quiz Module |
-| SP23-BSE-054 | Head Results Module |
-| SP23-BSE-059 | Head Graph Module |
-
-**Course Instructor:** Rashid Mukhtar
-
----
-
 ## 📄 License
 
 This project is developed for educational purposes as part of the Software Engineering course at COMSATS University Islamabad.
